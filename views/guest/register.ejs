@@ -1,0 +1,34 @@
+<% include general/header%>
+<link rel="stylesheet" href="css/log_reg.css">
+<div class="container-fluid bg" style="height: 650px">
+      <div class="row justify-content-center">
+        <div class="col-md-3 col-sm-6 col-xs-12 row-container">
+        <form action="/register" method="post">
+        <h2 class="title">Tạo tài khoản miễn phí</h2>
+        <br>
+         <div class="row">
+          <div class="col-xs-6 col-md-6">
+              <input class="form-control" name="lastname" placeholder="Họ" required="" autofocus="" type="text" required>
+          </div>
+          <div class="col-xs-6 col-md-6">
+              <input class="form-control" name="firstname" placeholder="Tên" required="" type="text" required>
+          </div>
+         </div>
+          <input class="form-control" name="email" placeholder="Email" type="email" required>
+          <input class="form-control" name="password" placeholder="Mật khẩu" type="password" id="pass" required>
+          <div class="form-group">
+            <span class="error_pass" style="color:red; font-weight: bold;"></span>
+          </div>
+          <input class="form-control" name="confirm_password" placeholder="Xác nhận mật khẩu" type="password" id="confpass" required>
+          <div class="form-group">
+            <span class="error" style="color:red; font-weight: bold;"></span>
+          </div>
+          <button class="btn btn-lg btn-primary btn-block" type="submit" id = "register"> Đăng ký</button> <br>
+          <p>Đã có tài khoản ?<a href="/login"> Đăng nhập</a></p>
+        </form>
+       </div>
+      </div>
+     </div>
+    <!-- register area end -->
+
+<% include footer %>
