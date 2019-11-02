@@ -1,0 +1,43 @@
+<% include header %>
+
+<div class="site-section" data-aos="fade" style="padding-top: 30px;">
+  <div class="container-fluid">
+
+    <div class="row justify-content-center">
+
+      <div class="col-md-7">
+        <div class="row mb-5">
+          <div class="col-12 ">
+            <h3 class="site-section-heading text-center" >Album <%= album.title %></h3>
+            <h5 class=" text-center">Tác giả: <%= album.user %></h5>
+            <h5 class=" text-center">Địa điểm: <%= album.location %></h5>
+            <h5 class="text-center">Mô tả về album: <%= album.description %></h5>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row" id="lightgallery">
+      <% images.forEach(function(image) { %>
+      <% if (typeof image.album != 'undefined') {%>
+      <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 item" data-aos="fade" data-src=<%=`uploads/${image.user}/${image.name}`%> data-sub-html="<h4><%= image.title %></h4><h4>Tác giả: <a href = <%= `/user/${image.user} ` %>><%= image.user %></a></h4>
+        <h4>Album: <a href = <%= `/album/${image.album} ` %>><%= image.albumTitle %></a></h4><p><%= image.description %></p>">
+        <a href="#"><img src=<%=`uploads/${image.user}/${image.name}`%> alt="IMage" class="img-fluid" onerror="imgError(this)"></a>
+      </div>
+      <% } else { %>
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 item" data-aos="fade" data-src=<%=`uploads/${image.user}/${image.name}`%> data-sub-html="<h4><%= image.title %></h4><h4>Tác giả: <a href = <%= `/user/${image.user} ` %>><%= image.user %></a></h4>
+          <p><%= image.description %></p>"><a href="#"><img src=<%=`uploads/${image.user}/${image.name}`%> alt="IMage" class="img-fluid" onerror="imgError(this)"></a>
+        </div>
+      <% } %>
+      <% })%>
+    </div>
+  </div>
+</div>
+<script>
+  function imgError(image) {
+    // Get image row
+    var imageRow = image.parentNode.parentNode;
+    imageRow.parentNode.removeChild(imageRow);
+  }
+</script>
+<% include footer %>

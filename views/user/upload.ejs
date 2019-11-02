@@ -1,0 +1,36 @@
+<% include general/header%>
+<form method = "post" action = "/upload" enctype="multipart/form-data">
+<div class="container-fluid" id="upload">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4" style="margin-top: 150px">
+      <input id="file-input" onchange = "readURL(this)" type='file' name="file"/>
+    </div>
+    <div class="col-md-4" style="margin-top: 50px">
+      <img id="preview" src="http://placehold.it/300" alt="your image" />
+    </div>
+  </div>
+  <div class="form-style-2 container">
+      <label><span>Tiêu đề của ảnh  <span class="required">*</span></span><input type="text" class="input-field" name="title" required /></label>
+      <label><span>Thể loại <span class="required">*</span></span>
+      <select name="type" required >
+        <option value="thiennhien">Thiên nhiên</option>
+        <option value="hoihoa">Hội họa</option>
+        <option value="hoangda">Hoang dã</option>
+        <option value="thucung">Thú cưng</option>
+        <option value="connguoi">Con người</option>
+        <option value="thethao">Thể thao</option>
+        <option value="dulich">Du lịch</option>
+        <option value="khac">Khác</option>
+      </select></label>
+      <label><span>Địa điểm chụp <span class="required">*</span></span><input type="text" class="input-field" name="location" required /></label>
+      <label><span>Mô tả gì đó về bức ảnh này <span class="required">*</span></span><textarea name="des" class="textarea-field" required></textarea></label>
+      <label><span></span></label><button class="btn btn-success">Đăng tải</button>
+      <a href="/"><button type="button" class="btn btn-danger">Hủy bỏ</button></a>
+
+    </form>
+  </div>
+</div>
+<script src="js/upload.js"></script>
+    <br>
+<% include footer %>

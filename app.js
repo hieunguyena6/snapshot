@@ -8,6 +8,7 @@ var flash = require('connect-flash');
 var session = require('express-session')
 
 var indexRouter = require('./routes/index');
+var albumRouter = require('./routes/album');
 var galleryRouter = require('./routes/gallery');
 var app = express();
 app.use(session({
@@ -16,7 +17,7 @@ app.use(session({
   saveUninitialized: false,
   cookie:{maxAge:60000000}
 }));
-mongoose.connect('mongodb://localhost/mydb',{useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true,},function(err){
+mongoose.connect('mongodb://localhost/snapshot',{useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true,},function(err){
   if (err) console.log('connect error');
   else console.log('connected');
 })
@@ -32,9 +33,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', indexRouter);
 app.use('/gallery', galleryRouter);
+app.use('/album', albumRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

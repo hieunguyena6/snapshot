@@ -1,0 +1,34 @@
+<% include general/header%>
+<form method = "post" action = "/upload_album" enctype="multipart/form-data">
+<div class="container-fluid" id="upload" style="height: 600px!important">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4" style="margin-top: 100px;margin-bottom: 30px;">
+      <input id="file-input" type='file' name="file" multiple/>
+      <label for="file">Tối đa 20 ảnh</label>
+    </div>
+  </div>
+  <div class="form-style-2 container">
+      <label><span>Tên album <span class="required">*</span></span><input type="text" class="input-field" name="title" required /></label>
+      <label><span>Thể loại <span class="required">*</span></span>
+      <select name="type" required >
+        <option value="thiennhien">Thiên nhiên</option>
+        <option value="hoihoa">Hội họa</option>
+        <option value="hoangda">Hoang dã</option>
+        <option value="thucung">Thú cưng</option>
+        <option value="connguoi">Con người</option>
+        <option value="thethao">Thể thao</option>
+        <option value="dulich">Du lịch</option>
+        <option value="khac">Khác</option>
+      </select></label>
+      <label><span>Địa điểm chụp <span class="required">*</span></span><input type="text" class="input-field" name="location" required /></label>
+      <label><span>Mô tả gì đó về album này <span class="required">*</span></span><textarea name="des" class="textarea-field" required></textarea></label>
+      <label><span></span></label><button class="btn btn-success">Đăng tải</button>
+      <a href="/"><button type="button" class="btn btn-danger">Hủy bỏ</button></a>
+
+    </form>
+  </div>
+</div>
+<script src="js/upload.js"></script>
+    <br>
+<% include footer %>
