@@ -6,7 +6,6 @@
   <meta charset="utf-8">
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
   <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300i,400,700" rel="stylesheet">
   <link rel="stylesheet" href="fonts/icomoon/style.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -35,9 +34,6 @@
       </div>
       <div class="site-mobile-menu-body"></div>
     </div>
-
-
-
 
     <header class="site-navbar py-3" role="banner">
 
@@ -91,8 +87,7 @@
               <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= fullname %></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
-                  <a class="dropdown-item" href="#">Profile</a>
-                  <a class="dropdown-item" href="#">Account Info</a>
+                  <a class="dropdown-item" href="/myprofile">Profile</a>
                   <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
               </div>
@@ -105,17 +100,17 @@
           &nbsp;
           <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
           <%} else { %>
-            <div class="col-6 col-xl-2 text-right" data-aos="fade-down">
-              <div class="d-none d-xl-inline-block">
-                <ul class="site-menu js-clone-nav ml-auto list-unstyled d-flex text-right mb-0" data-class="social">
-                  <li><a href="/register">Đăng ký</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <li><a href="/login">Đăng nhập</a></li>
-                </ul>
-              </div>
-
-              <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
-
+          <div class="col-6 col-xl-2 text-right" data-aos="fade-down">
+            <div class="d-none d-xl-inline-block">
+              <ul class="site-menu js-clone-nav ml-auto list-unstyled d-flex text-right mb-0" data-class="social">
+                <li><a href="/register">Đăng ký</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li><a href="/login">Đăng nhập</a></li>
+              </ul>
             </div>
+
+            <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
+
+          </div>
           <% } %>
         </div>
       </div>

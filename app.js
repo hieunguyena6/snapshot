@@ -10,6 +10,7 @@ var session = require('express-session')
 var indexRouter = require('./routes/index');
 var albumRouter = require('./routes/album');
 var galleryRouter = require('./routes/gallery');
+var imageRouter = require('./routes/image');
 var app = express();
 app.use(session({
   secret: 'mySecretKey',
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/gallery', galleryRouter);
 app.use('/album', albumRouter);
+app.use('/images', imageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

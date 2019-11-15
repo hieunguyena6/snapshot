@@ -1,0 +1,179 @@
+<% include general/header %>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+  integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+<link rel="stylesheet" href="css/profile.css">
+<div class="container" style="margin-top:20px;">
+
+  <div class="tab">
+    <button class="tablinks" onclick="display_info(event, 'user_info')" id="defaultOpen">
+      <i class="fa fa-user"></i>
+      <a></aclass> Thông tin cá nhân</a>
+    </button>
+    <button class="tablinks" onclick="display_info(event, 'info_edit')">
+      <i class="fa fa-pen"></i>
+      <a> Chỉnh sửa thông tin</a>
+    </button>
+    <button class="tablinks" onclick="display_info(event, 'do_test')">
+      <i class="fa fa-image"></i>
+      <a> Các ảnh đã đăng</a>
+    </button>
+    <button class="tablinks" onclick="display_info(event, 'ques_post')">
+      <i class="fa fa-images"></i>
+      <a> Các album đã đăng</a>
+
+    </button>
+  </div>
+
+  <div id="user_info" class="profile-content">
+    <p><b style="font-size: 30px;padding-left:275px;">Thông tin cá nhân</b></p>
+    <div class="profile-sidebar">
+      <!-- SIDEBAR USERPIC -->
+      <div class="profile-userpic">
+        <img src="./images/user.png" class="img-responsive" alt="">
+      </div>
+      <!-- END SIDEBAR USERPIC -->
+      <!-- SIDEBAR USER TITLE -->
+      <div class="profile-usertitle">
+        <div class="profile-usertitle-name">
+          <%= fullname %></p>
+        </div>
+        <div class="profile-usertitle-job">
+          <%= user.email %></p>
+        </div>
+      </div>
+    </div>
+    <p><b>Họ tên</b>: <%= fullname %></p>
+    <p><b>Email</b>: <%= user.email %></p>
+    <p><b>Mô tả bản thân</b>: <%= user.description %>
+    </p>
+  </div>
+
+  <div id="info_edit" class="profile-content" style="display: none;">
+    <p><b style="font-size: 30px;">Chỉnh sửa thông tin cá nhân</b></p>
+    <form action="/profile" method="post">
+      <div class="row form-group" style="margin-top:20px; ">
+        <label for="name_change" style="width: 150px;margin:0 20px;">Họ</label>
+        <input type="text" id="name_change" class="col-sm-6" name="firstname" required>
+      </div>
+      <div class="row form-group" style="margin-top:20px; ">
+        <label for="name_change" style="width: 150px;margin:0 20px;">Tên</label>
+        <input type="text" class="col-sm-6" name="lastname" required>
+      </div>
+      <div class="row form-group">
+        <label for="description" style="width: 150px;margin:0 20px;"> Mô tả về bản thân</label>
+        <textarea id="description" class="col-sm-6" style="height:100px;" name="des" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="margin:0 20px;">Thay đổi</button>
+    </form>
+  </div>
+
+  <div id="do_test" class="profile-content" style="display: none;">
+    <p><b>Tổng số bài thi đã đăng</b>:kkkkkkkkk</p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Tên ảnh</th>
+          <th scope="col">Ảnh</th>
+          <th scope="col">Album</th>
+          <th scope="col">Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let i = 0; i < images.length; i++) { %>
+        <tr>
+          <td scope="row"><%= i + 1 %></td>
+          <td><%= images[i].title %></td>
+          <td><img style="width: 80px; height: 50px" src=<%=`uploads/${images[i].user}/${images[i].name}`%>></td>
+          <td><%= images[i].album %></td>
+          <td><button class="btn btn-danger" onclick=<%='delete_image(this,' + images[i]._id + ')' %>>Xóa</button></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <div id="ques_post" class="profile-content" style="display: none;">
+  </div>
+</div>
+
+<script>
+  function delete_image(bt, id) {
+    console.log(id);
+    $.ajax({
+      url: "/images/" + id,
+      type: "DELETE", // <- Change here
+      contentType: "application/json",
+      success: function () {
+        alert('Đã xóa thành công !');
+      },
+    });
+  }
+
+  function display_info(evt, info) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("profile-content");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace("active", "");
+    }
+    document.getElementById(info).style.display = "block";
+    evt.currentTarget.className += "active";
+  }
+
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
+</script>
+<footer class="footer-area">
+  <div class="top-footer-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+
+          <div class="footer-logo">
+            <a href="/">
+              <h4 style="color:bisque;">SnapShot</h4>
+            </a>
+          </div>
+          <p><a href="/">
+              Copyright &copy;<script>
+                document.write(new Date().getFullYear());
+              </script> All rights reserved | This template is made with <i class="fa fa-heart-o"
+                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</footer>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/login.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/jquery.countdown.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/bootstrap-datepicker.min.js"></script>
+<script src="js/swiper.min.js"></script>
+<script src="js/aos.js"></script>
+<script src="js/picturefill.min.js"></script>
+<script src="js/lightgallery-all.min.js"></script>
+<script src="js/jquery.mousewheel.min.js"></script>
+
+<script src="js/main.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('#lightgallery').lightGallery();
+  });
+</script>
+
+</body>
+
+</html>

@@ -34,6 +34,23 @@ router.get('/register', function(req, res, next) {
   });
 });
 
+router.get('/myprofile',async function(req, res, next) {
+  var fullname = req.session.fullname;
+  console.log(fullname);
+  if (typeof fullname == 'undefined') res.redirect('/');
+  else {
+    var images = await Image.find({user: req.session.user});
+    var user = await User.findOne({_id : req.session.user_id});
+    console.log(images);
+    res.render('user/profile', {
+      message: "",
+      fullname: fullname,
+      user: user,
+      images: images
+    });
+  }
+});
+
 router.get('/upload', function(req, res, next) {
   if (!req.session.user) res.render('general/index', {
     message: "Hãy đăng nhập để upload ảnh !",
@@ -55,12 +72,12 @@ router.post("/upload", (req, res) => {
       }
       callback(null, dir);
     },
-    filename: function (req, file, cb) {
-    crypto.pseudoRandomBytes(16, function (err, raw) {
-      if (err) return cb(err)
-      cb(null, raw.toString('hex') + path.extname(file.originalname))
-    })
-  }
+    filename: function(req, file, cb) {
+      crypto.pseudoRandomBytes(16, function(err, raw) {
+        if (err) return cb(err)
+        cb(null, raw.toString('hex') + path.extname(file.originalname))
+      })
+    }
   });
 
   let uploadFile = multer({
@@ -74,8 +91,8 @@ router.post("/upload", (req, res) => {
         fullname: req.session.fullname
       });
     } else {
-      var image  = new Image ({
-        name : req.file.filename,
+      var image = new Image({
+        name: req.file.filename,
         type: post.type,
         user: req.session.user,
         title: post.title,
@@ -88,8 +105,7 @@ router.post("/upload", (req, res) => {
             message: "Lưu ảnh bị lỗi: " + e,
             fullname: req.session.fullname
           });
-        }
-        else {
+        } else {
           res.render('user/upload', {
             message: "Đăng tải ảnh thành công !",
             fullname: req.session.fullname
@@ -111,7 +127,7 @@ router.get('/upload_album', function(req, res, next) {
   });
 });
 
-router.post("/upload_album" ,(req, res) => {
+router.post("/upload_album", (req, res) => {
   let diskStorage = multer.diskStorage({
     destination: (req, file, callback) => {
       var fs = require('fs');
@@ -121,16 +137,16 @@ router.post("/upload_album" ,(req, res) => {
       }
       callback(null, dir);
     },
-    filename: function (req, file, cb) {
-    crypto.pseudoRandomBytes(16, function (err, raw) {
-      if (err) return cb(err)
-      cb(null, raw.toString('hex') + path.extname(file.originalname))
-    })
-  }
+    filename: function(req, file, cb) {
+      crypto.pseudoRandomBytes(16, function(err, raw) {
+        if (err) return cb(err)
+        cb(null, raw.toString('hex') + path.extname(file.originalname))
+      })
+    }
   });
   let uploadFile = multer({
     storage: diskStorage
-  }).array("file",20);
+  }).array("file", 20);
   uploadFile(req, res, (error) => {
     var post = req.body;
     if (error) {
@@ -145,7 +161,7 @@ router.post("/upload_album" ,(req, res) => {
         location: post.location,
         type: post.type,
         description: post.des
-      }).save(function(e,result){
+      }).save(function(e, result) {
         if (e) res.render('user/upload_album', {
           message: "Đăng tải album bị lỗi " + e,
           fullname: req.session.fullname
@@ -153,15 +169,15 @@ router.post("/upload_album" ,(req, res) => {
         else {
           for (var i = 0; i < req.files.length; i++) {
             var image = new Image({
-              name : req.files[i].filename,
+              name: req.files[i].filename,
               type: post.type,
               user: req.session.user,
               title: post.title,
               location: post.location,
               description: post.des,
               album: result._id
-            }).save(function(er){
-              if (er ) res.render('user/upload_album', {
+            }).save(function(er) {
+              if (er) res.render('user/upload_album', {
                 message: "Đăng tải ảnh bị lỗi " + er,
                 fullname: req.session.fullname
               });
@@ -218,6 +234,7 @@ router.post('/login', function(req, res, next) {
     });
     else {
       req.session.user = user.email;
+      req.session.user_id = user._id;
       req.session.fullname = user.firstname + " " + user.lastname;
       console.log(req.session.fullname);
       res.redirect('/');

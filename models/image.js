@@ -25,7 +25,10 @@ var ImageSchema = new mongoose.Schema({
   },
   album: {
     type: String
-  }
+  },
+  users_like: {
+    type: [String]
+  },
 });
 var Image = mongoose.model('Image', ImageSchema);
 module.exports = Image;

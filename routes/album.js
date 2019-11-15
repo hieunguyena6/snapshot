@@ -11,7 +11,10 @@ router.get('/:id',async function(req, res, next) {
       var album = await Album.findById(images[i].album);
       images[i].albumTitle = album.title;
   }
-  res.render('general/album', {message: '', fullname: '', album: album, images: images});
+  var fullname;
+  if (req.session.fullname) fullname = req.session.fullname;
+  else fullname = '';
+  res.render('general/album', {message: '', fullname: fullname, album: album, images: images});
 })
 
 module.exports = router;

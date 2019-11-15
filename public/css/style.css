@@ -1965,3 +1965,14 @@ color: white;}
 	background: #EA7B00;
 	color: #fff;
 }
+
+.heart {
+  color: grey;
+  font-size: 50px;
+  cursor: pointer;
+}
+
+.heart.red {
+  color: red;
+  cursor: pointer;
+}
